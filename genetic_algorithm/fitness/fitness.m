@@ -14,6 +14,7 @@ function penalty = fitness(schedule, students)
 
     penalty = 0;
 
+    % TODO: Change this to divide by 3, since we're switching a chunk to be a day
     for start = 1:6:size(schedule, 2)
         end_ = min(start + 5, size(schedule, 2));
 

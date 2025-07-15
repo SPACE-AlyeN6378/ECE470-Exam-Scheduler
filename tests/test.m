@@ -9,6 +9,8 @@ addpath('dataset/');
 
 students = student_data();
 population = init_population(8);
-fitness_scores = cellfun(@(comb) fitness(comb, students), population)
+% fitness_scores = cellfun(@(comb) fitness(comb, students), population)
 
-% fitness(population, students)
+
+% students
+fitness(population{3}, students)

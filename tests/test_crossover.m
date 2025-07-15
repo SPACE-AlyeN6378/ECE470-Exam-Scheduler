@@ -11,7 +11,7 @@ B = reshape(A(randperm(numel(A))), size(A));
 A
 B
 
-[C, D] = crossover(A, B, 60, true);
+[A1, B1] = crossover(A, B, 1, true);
 
-C
-D
+A1
+B1

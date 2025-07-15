@@ -5,8 +5,8 @@ function penalty = evaluate_chunk(students, chunk)
 %
 %   Inputs:
 %     students - A matrix where each row contains course IDs taken by a student.
-%     chunk    - A matrix representing a 24-hour schedule. Each column is a time slot,
-%                and each row is a course ID scheduled at that time.
+%     chunk    - A matrix representing a 48-hour schedule. Each column is a time slot,
+%                and each row is a room associated scheduled at that time.
 %
 %   Output:
 %     penalty  - A scalar penalty score. Higher penalties indicate worse schedules
@@ -15,7 +15,7 @@ function penalty = evaluate_chunk(students, chunk)
     penalty = 0;
 
     % Iterate through each student
-    for student_id = 1:size(students, 1)
+    for student_id = 1:size(students, 1)  % ================================================================
 
         % Grab the number of courses taken
         courses_taken = students(student_id, :);
@@ -29,8 +29,9 @@ function penalty = evaluate_chunk(students, chunk)
             
             if size(courses_per_time_slot, 1) > 0
                 % Hell no, I'm not gonna two exams simulatenously!!!
+                % The penalty is way heavier! So +10
                 if size(courses_per_time_slot, 1) > 1
-                    penalty = penalty + 1;
+                    penalty = penalty + 10;
                 end
 
                 % Increment the total number of courses per chunk
@@ -38,6 +39,7 @@ function penalty = evaluate_chunk(students, chunk)
             end
         end
 
+        % TODO: There's too much restriction. Make the fitness such that there is only one exam within __24 HOURS__
         % Impose a penalty if the total courses in a 48-hour period is more than one
         if total_courses_per_chunk > 0
             penalty = penalty + total_courses_per_chunk - 1;
