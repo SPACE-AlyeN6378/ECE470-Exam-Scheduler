@@ -1,4 +1,4 @@
-function penalty = fitness(schedule)
+function penalty = fitness(schedule, students)
 % FITNESS Evaluates the overall quality of a complete exam schedule.
 %
 %   penalty = fitness(schedule)
@@ -12,7 +12,6 @@ function penalty = fitness(schedule)
 %     penalty  - A scalar penalty score that reflects the overall "badness" of the schedule.
 %                Higher values indicate more student conflicts or clustering of exams.
 
-    students = student_data();
     penalty = 0;
 
     for start = 1:6:size(schedule, 2)
