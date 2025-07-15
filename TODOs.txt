@@ -1,1 +1,1 @@
-TODO: 
+TODO: Discuss about terminate conditions
