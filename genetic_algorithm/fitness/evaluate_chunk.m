@@ -46,4 +46,5 @@ function penalty = evaluate_chunk(students, chunk)
         end
 
     end
+    fprintf("PENALTY: %d\n", penalty);
 end

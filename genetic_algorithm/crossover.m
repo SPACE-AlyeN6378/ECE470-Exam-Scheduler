@@ -25,8 +25,7 @@ function [newA, newB] = crossover(A, B, portion, sideways)
     [rows, cols] = size(A);
 
     % Set the number of swap based on the rate
-    % numberOfSwaps = ceil((portion/100) * (numel(A) / 2));
-    numberOfSwaps = portion;
+    numberOfSwaps = ceil((portion/100) * (numel(A) / 2));
     newA = A; newB = B;
 
     for n = 0:(numberOfSwaps-1)

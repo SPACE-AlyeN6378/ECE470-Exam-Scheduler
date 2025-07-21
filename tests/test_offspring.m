@@ -11,7 +11,7 @@ B = reshape(A(randperm(numel(A))), size(A));
 A
 B
 
-[A1, B1] = crossover(A, B, 1, true);
+[A1, B1] = produce_offspring(A, B, 30, 60, 15);
 
 A1
 B1

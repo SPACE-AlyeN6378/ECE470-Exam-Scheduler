@@ -1,7 +1,5 @@
 function A = mutate(A)
-    % TODO: In the main program, make sure that there is a CHANCE that mutation has been happening
-    % We want there to have multiple mutations (e.g. 720 mutations by random)
-
+    
     % Retreive two positions at random
     pos1 = randi([1, numel(A)]);
     pos2 = randi([1, numel(A)]);
