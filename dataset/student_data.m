@@ -1,4 +1,6 @@
 function students = student_data()
-    table = readtable("College_Student_Dataset_With_Codes.xlsx");
-    students = [table.Course1Code, table.Course2Code, table.Course3Code, table.Course4Code, table.Course5Code];
+    fprintf("Extracting student samples from the spreadsheet... ")
+    table = readtable("Final_College_Student_Dataset_NoDuplicates.xlsx");
+    students = [table.Course1_Code, table.Course2_Code, table.Course3_Code, table.Course4_Code, table.Course5_Code];
+    fprintf("DONE!\n")
 end
