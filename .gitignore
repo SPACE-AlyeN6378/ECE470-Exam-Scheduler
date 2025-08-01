@@ -2,3 +2,4 @@ csv/
 csv2/
 .vscode/
 __pycache__/
+fitness_log.txt

@@ -55,7 +55,7 @@ class Crossover:
         number_of_elements = round(parent_size * portion / 100)
 
         # Choose between segment selection and random spots
-        if random.getrandbits(1):
+        if random.randint(1, 100) <= 50:
             selections = self.select_random_spots(parent_size, number_of_elements)
         else:
             selections = self.select_segment(parent_size, random.randint(0, parent_size - 1), number_of_elements)
