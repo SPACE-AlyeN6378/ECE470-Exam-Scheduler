@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import math
 
 DEBUG = False
 # Set print options to avoid wrapping
@@ -31,9 +32,8 @@ class ScheduleMaker:
 
         print(f"Generating schedule...   ", end="")
         total_slots = self.time_slots_per_day * self.days
-        minimum_rooms = len(self.courses) // total_slots
+        minimum_rooms = math.ceil(len(self.courses) / total_slots)
 
-        
         # Make a set of clustered courses
         np.random.shuffle(self.courses)
         clustered_schedule = self.courses.reshape((minimum_rooms, total_slots))
@@ -84,11 +84,11 @@ class ScheduleMaker:
 
 if __name__ == "__main__":
     maker = ScheduleMaker(
-        time_slots_per_day=4,
-        days=10
+        time_slots_per_day=5,
+        days=12
     )
 
     schedule = maker.generate(extra_rooms=6)
-    np.savetxt("init_schedule.csv", schedule, delimiter=',', fmt="%d")
+    np.savetxt("csv/init_schedule.csv", schedule, delimiter=',', fmt="%d")
     # flattened = schedule.flatten()
     # print(schedule == flattened.reshape((maker.ROOMS, maker.TIME_SLOTS)))

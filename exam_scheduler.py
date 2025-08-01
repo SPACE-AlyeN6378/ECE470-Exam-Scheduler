@@ -119,8 +119,8 @@ class ExamScheduler:
 if __name__ == "__main__":
     exam_scheduler = ExamScheduler(
         pop_size=4,
-        slots_per_day=4,
-        days=10,
+        slots_per_day=5,
+        days=12,
         extra_rooms=6,
         min_allowed_portion=40,     # For crossover
         max_allowed_portion=60,
