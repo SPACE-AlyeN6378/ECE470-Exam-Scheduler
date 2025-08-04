@@ -81,59 +81,12 @@ def spread_mutation(schedule, student_data, portion_of_students, slots_per_day):
         spread_mutation_per_student(schedule, student_courses, 
                                     slots_per_day)
         
-def swap_mutation(schedule, chance, rate_of_diffusion):    # NOTE: Chance is out of 1000
-    
-    rows, cols = schedule.shape
-    
-    # Go through the entire table
-    for row in range(rows):
-        for col in range(cols):
-            # This indicates an empty slot, and it must be filled up. Therefore the chance is much higher
-            # NOTE: chance is out of 1000
-            if schedule[row, col] == 0:
-                if random.randint(1, 1000) < rate_of_diffusion:
-                    # Randomly choose another slot
-                    other_row = random.randint(0, rows-1)
-                    other_col = random.randint(0, cols-1)
-                    # If the randomly chosen exam slot is empty, then generate again
-                    while schedule[other_row, other_col] == 0:
-                        other_row = random.randint(0, rows-1)
-                        other_col = random.randint(0, cols-1)
-
-                    # Swap it!
-                    schedule[row, col], schedule[other_row, other_col] = \
-                    schedule[other_row, other_col], schedule[row, col]
-
-            else:
-                if random.randint(1, 1000) < chance:
-                    other_row = random.randint(0, rows-1)
-                    other_col = random.randint(0, cols-1)
-
-                    # Swap it!
-                    schedule[row, col], schedule[other_row, other_col] = \
-                    schedule[other_row, other_col], schedule[row, col]
-
-
+# For testing purposes
 if __name__ == "__main__":
 
     schedule = np.loadtxt('csv/initial_schedule.csv', delimiter=',', dtype=int)
     student_data = np.loadtxt('csv/students.csv', delimiter=',', dtype=int)
 
     spread_mutation(schedule, student_data, 40, 4)
-
-    np.savetxt('csv/preview.csv', schedule, delimiter=',', fmt="%d")
-
-    # input("...")
-
-    # spread_mutation_per_student(schedule, student_data[student_id], 4)
-    
-    # for i in range(0, 40, 4):
-    #     exams = exams_per_student(student_data[student_id], schedule[:, i:i+4])
-    # # slots = get_slots(schedule, exams)
-    #     print(exams)
-
-
-
-                
-                
+    np.savetxt('csv/preview.csv', schedule, delimiter=',', fmt="%d")                
         

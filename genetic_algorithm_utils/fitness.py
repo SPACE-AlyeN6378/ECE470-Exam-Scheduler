@@ -1,12 +1,7 @@
 import numpy as np
-import time
-
-
 
 def fitness_per_day(student_data, chunk_of_schedule):
     conflict_count = 0      # Students facing more than one exams simultaneously
-    # TODO: Terminate the algorithm when the conflict_count is zero
-    
     multiple_exam_count = 0
 
     for student_courses in student_data:
@@ -51,19 +46,3 @@ if __name__ == "__main__":
 
     fitness = fitness(student_data, schedule2, 4)
     print(fitness)
-    
-    # print(slots)
-    # zero_location = np.where(schedule[:, 16:20] == 0)
-    # print(get_slots(schedule, exams))
-    # for row in exams_per_student(student_data[456], schedule[:, 16:20]):
-    #     print(row)
-
-
-    # start = time.time()
-    # score = fitness(student_data, schedule)
-    # end = time.time()
-
-    # print(f"Time: {end - start} seconds")
-
-
-

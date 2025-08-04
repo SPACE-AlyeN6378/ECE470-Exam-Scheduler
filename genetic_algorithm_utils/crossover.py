@@ -42,8 +42,6 @@ class Crossover:
                 child[inverse_range[i]] = num
                 i += 1
 
-        
-
         if DEBUG: print(child)
 
         child = child.reshape(parentA.shape)

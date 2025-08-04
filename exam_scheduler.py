@@ -4,6 +4,7 @@ from genetic_algorithm_utils.crossover import Crossover
 from genetic_algorithm_utils.fitness import fitness
 from genetic_algorithm_utils.natural_selection import natural_selection
 from genetic_algorithm_utils.mutation import spread_mutation
+import time
 
 class ExamScheduler:
 
@@ -32,6 +33,8 @@ class ExamScheduler:
         self.crossover = Crossover(min_allowed_portion, max_allowed_portion)
         self.fitness_scores = []
         self.conflict_scores = []
+        self.fitness_time = []
+        self.produce_time = []
         self.mutation_rate = mutation_rate      # NOTE: mutation_rate out of 1000
 
     def evaluate_fitness(self):
@@ -39,12 +42,17 @@ class ExamScheduler:
         self.fitness_scores.clear()
         self.conflict_scores.clear()
         
+        
         for i, schedule in enumerate(self.population):
+            
             print()
             print(f"************** SCHEDULE {i+1} **************")
+            start_time = time.time()
             conflict, _, penalty = fitness(self.student_data, schedule, self.slots_per_day)
+            end_time = time.time()
             self.fitness_scores.append(penalty)
             self.conflict_scores.append(conflict)
+            self.fitness_time.append(end_time - start_time)
 
         with open("fitness_log.txt", "a") as file:
             file.write(str(self.fitness_scores) + "\n")
@@ -55,9 +63,14 @@ class ExamScheduler:
 
         for i1, i2 in natural_selection(self.fitness_scores, len(self.population)):
             print(f"Generating child {population_number}...  ", end="")
+            start_time = time.time()
             child = self.crossover.make_child(self.population[i1], self.population[i2])
             print("Crossover complete. Performing mutation...  ", end="")
+
+            
             spread_mutation(child, self.student_data, self.mutation_rate, self.slots_per_day)
+            end_time = time.time()
+            self.produce_time.append(end_time - start_time)
              
             new_population.append(child)
             population_number += 1
@@ -73,6 +86,9 @@ class ExamScheduler:
         # Make a log life to keep track of the fitness scores
         file = open("fitness_log.txt", "w")
         file.close()
+
+        time_file = open("time.txt", "w")
+        time_file.close()
 
         iteration = 1
 
@@ -102,6 +118,8 @@ class ExamScheduler:
                 print(f"                  ITERATION {iteration}")
                 print("===========================================================")
                 self.evaluate_fitness()
+
+                self.update_time()
                 
             
 
@@ -115,6 +133,16 @@ class ExamScheduler:
         cols = optimized_sch.shape[1]
         header = ','.join([f"Day {i//3 + 1}/Slot {(i%3 + 1)}" for i in range(cols)])
         np.savetxt("csv/preview.csv", optimized_sch, header=header, delimiter=',', fmt="%d")
+
+    def update_time(self):
+        avg_fitness_time = sum(self.fitness_time) / len(self.fitness_time)
+        avg_produce_time = sum(self.produce_time) / len(self.produce_time)
+        report = f"""
+Average fitness time: {avg_fitness_time}
+Average child production time: {avg_produce_time}
+"""
+        with open("time.txt", "w") as file:
+            file.write(report)
     
 if __name__ == "__main__":
     exam_scheduler = ExamScheduler(

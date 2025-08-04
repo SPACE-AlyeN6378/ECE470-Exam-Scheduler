@@ -44,44 +44,10 @@ class ScheduleMaker:
         schedule[0:minimum_rooms] = clustered_schedule
         np.random.shuffle(schedule)
 
-
-        # Reshuffle the majors
-        # self.majors = self.__get_majors()
-        
-        # middle_starting_pts = []
-
-        # # Fill the first half of the schedule
-        # for index in range(self.__courses_per_major_max_qty()):
-
-        #     courses = self.__courses_by_index(index)
-        #     courses_per_time_slot = courses[0:self.ROOMS]
-        #     redundant_courses = courses[self.ROOMS:len(courses)]
-
-        #     if index < self.__courses_per_major_max_qty() // 2:
-        #         schedule[0:self.ROOMS, 3*index] = courses_per_time_slot
-        #         schedule[0:len(redundant_courses), 3*index + 1] = redundant_courses
-        #         middle_starting_pts.append(len(redundant_courses))
-
-        #     else:
-        #         mod_index1 = (3*index + 2) % self.TIME_SLOTS
-        #         mod_index2 = (3*index + 1) % self.TIME_SLOTS
-        #         start = middle_starting_pts[index % len(middle_starting_pts)]
-
-        #         schedule[0:self.ROOMS, mod_index1] = courses_per_time_slot
-        #         schedule[start:start+len(redundant_courses), mod_index2] = redundant_courses
-
         print("DONE!")
         return schedule
 
-        # if DEBUG:
-        #     for i in range(0, 30, 6): 
-        #         print(schedule[:, i:i+6])
-
-        
-
-        # return schedule
-
-
+# For testing purposes
 if __name__ == "__main__":
     maker = ScheduleMaker(
         time_slots_per_day=5,
@@ -90,5 +56,3 @@ if __name__ == "__main__":
 
     schedule = maker.generate(extra_rooms=6)
     np.savetxt("csv/init_schedule.csv", schedule, delimiter=',', fmt="%d")
-    # flattened = schedule.flatten()
-    # print(schedule == flattened.reshape((maker.ROOMS, maker.TIME_SLOTS)))

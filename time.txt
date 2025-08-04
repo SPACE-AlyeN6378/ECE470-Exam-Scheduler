@@ -1,0 +1,3 @@
+
+Average fitness time: 36.032676796118416
+Average child production time: 20.96613073348999
